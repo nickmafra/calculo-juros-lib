@@ -30,6 +30,7 @@ public class CapitalizacaoMultipla {
 
     public void setArredondamentoFinal(Arredondamento arredondamentoFinal) {
         this.arredondamentoFinal = arredondamentoFinal;
+        capitalizacoes.forEach(c -> c.setArredondamentoIntermediario(arredondamentoFinal));
     }
 
     public Arredondamento getArredondamentoIntermediario() {
@@ -38,6 +39,7 @@ public class CapitalizacaoMultipla {
 
     public void setArredondamentoIntermediario(Arredondamento arredondamentoIntermediario) {
         this.arredondamentoIntermediario = arredondamentoIntermediario;
+        capitalizacoes.forEach(c -> c.setArredondamentoIntermediario(arredondamentoIntermediario));
     }
 
     public List<Capitalizacao> getCapitalizacoes() {

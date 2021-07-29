@@ -15,7 +15,7 @@ public class CapitalizacaoExemploCalcularTaxa {
         capitalizacaoMultipla.addParcelasFixas(0, 6, new BigDecimal("2000.00"));
         capitalizacaoMultipla.addParcelasFixas(6, 24, new BigDecimal("1000.00"));
 
-        capitalizacaoMultipla.descubraTaxaJuros(BigDecimal.ONE, new Arredondamento(4));
+        capitalizacaoMultipla.descubraTaxaJuros(BigDecimal.ONE, new Arredondamento(8));
         BigDecimal valorPresente = capitalizacaoMultipla.calculeValorPresente();
 
         System.out.println("Taxa percentual de juros: " + capitalizacaoMultipla.getJuros().getTaxaPercentual());

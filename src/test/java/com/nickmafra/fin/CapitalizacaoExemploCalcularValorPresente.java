@@ -7,7 +7,7 @@ public class CapitalizacaoExemploCalcularValorPresente {
     public static void main(String[] args) {
         Juros juros = new Juros();
         juros.setTipoJuros(TipoJuros.COMPOSTO);
-        juros.setTaxaPercentual(new BigDecimal("2.0064"));
+        juros.setTaxaPercentual(new BigDecimal("2.006393"));
         juros.setTipoPeriodo(TipoPeriodo.MES);
         CapitalizacaoMultipla capitalizacaoMultipla = new CapitalizacaoMultipla(juros);
 

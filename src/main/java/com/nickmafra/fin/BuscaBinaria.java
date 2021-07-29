@@ -19,7 +19,7 @@ public class BuscaBinaria {
         int qtTentativas = 0;
         do {
             if (qtTentativas >= QT_MAXIMA_TENTATIVAS)
-                return tentativa; // já tentou demais
+                break; // já tentou demais
 
             BigDecimal respostaAproximadaNova = funcaoTentativa.apply(tentativa);
             qtTentativas++;
@@ -33,7 +33,7 @@ public class BuscaBinaria {
 
             BigDecimal diferencaTentativaNova = arredondamentoIntermediario.dividirArredondando(diferencaTentativa, Calculo.DOIS);
             if (diferencaTentativaNova.compareTo(diferencaTentativa) == 0) {
-                return tentativa; // a aproximação chegou ao limite
+                break; // a aproximação chegou ao limite
             }
             diferencaTentativa = diferencaTentativaNova;
 
@@ -44,6 +44,8 @@ public class BuscaBinaria {
             }
         } while (respostaAproximada.compareTo(respostaAlvo) != 0);
 
-        return arredondamentoFinal.arredondar(tentativa);
+        tentativa = arredondamentoFinal.arredondar(tentativa);
+        funcaoTentativa.apply(tentativa); // tenta uma vez com o valor arredondado para armazenar
+        return tentativa;
     }
 }
