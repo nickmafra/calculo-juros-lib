@@ -10,7 +10,7 @@ public class BuscaBinaria {
     private BuscaBinaria() {
     }
 
-    public static BigDecimal descubra(BigDecimal respostaAlvo, BigDecimal tentativaMaxima, Arredondamento arredondamento, UnaryOperator<BigDecimal> funcaoTentativa) {
+    public static BigDecimal descubra(BigDecimal respostaAlvo, BigDecimal tentativaMaxima, UnaryOperator<BigDecimal> funcaoTentativa, Arredondamento arredondamentoFinal, Arredondamento arredondamentoIntermediario) {
         BigDecimal respostaAproximada;
         BigDecimal diferencaResposta;
         BigDecimal tentativa = tentativaMaxima;
@@ -31,7 +31,7 @@ public class BuscaBinaria {
                 direcao = -diferencaResposta.signum();
             }
 
-            BigDecimal diferencaTentativaNova = arredondamento.dividirArredondando(diferencaTentativa, Calculo.DOIS);
+            BigDecimal diferencaTentativaNova = arredondamentoIntermediario.dividirArredondando(diferencaTentativa, Calculo.DOIS);
             if (diferencaTentativaNova.compareTo(diferencaTentativa) == 0) {
                 return tentativa; // a aproximação chegou ao limite
             }
@@ -44,6 +44,6 @@ public class BuscaBinaria {
             }
         } while (respostaAproximada.compareTo(respostaAlvo) != 0);
 
-        return tentativa;
+        return arredondamentoFinal.arredondar(tentativa);
     }
 }

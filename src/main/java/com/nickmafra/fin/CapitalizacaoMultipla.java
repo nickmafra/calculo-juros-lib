@@ -10,7 +10,8 @@ import java.util.function.Function;
 public class CapitalizacaoMultipla {
 
     private final Juros juros;
-    private Arredondamento arredondamento = Arredondamento.PADRAO;
+    private Arredondamento arredondamentoFinal = Arredondamento.PADRAO;
+    private Arredondamento arredondamentoIntermediario = Arredondamento.INTERMEDIARIO_PADRAO;
     private final List<Capitalizacao> capitalizacoes = new ArrayList<>();
     private BigDecimal valorPresente = BigDecimal.ZERO;
 
@@ -23,12 +24,20 @@ public class CapitalizacaoMultipla {
         return juros;
     }
 
-    public Arredondamento getArredondamento() {
-        return arredondamento;
+    public Arredondamento getArredondamentoFinal() {
+        return arredondamentoFinal;
     }
 
-    public void setArredondamento(Arredondamento arredondamento) {
-        this.arredondamento = arredondamento;
+    public void setArredondamentoFinal(Arredondamento arredondamentoFinal) {
+        this.arredondamentoFinal = arredondamentoFinal;
+    }
+
+    public Arredondamento getArredondamentoIntermediario() {
+        return arredondamentoIntermediario;
+    }
+
+    public void setArredondamentoIntermediario(Arredondamento arredondamentoIntermediario) {
+        this.arredondamentoIntermediario = arredondamentoIntermediario;
     }
 
     public List<Capitalizacao> getCapitalizacoes() {
@@ -37,7 +46,8 @@ public class CapitalizacaoMultipla {
 
     public Capitalizacao addCapitalizacao(int qtPeriodos, BigDecimal valorFuturo) {
         Capitalizacao capitalizacao = new Capitalizacao(juros);
-        capitalizacao.setArredondamento(arredondamento);
+        capitalizacao.setArredondamentoFinal(arredondamentoFinal);
+        capitalizacao.setArredondamentoIntermediario(arredondamentoIntermediario);
         capitalizacao.setQtPeriodos(qtPeriodos);
         capitalizacao.setValorFuturo(valorFuturo);
         capitalizacoes.add(capitalizacao);
@@ -73,7 +83,7 @@ public class CapitalizacaoMultipla {
         BigDecimal valor = capitalizacoes.stream()
                 .map(getter)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return arredondamento.arredondar(valor);
+        return arredondamentoFinal.arredondar(valor);
     }
 
     public BigDecimal calculeValorPresente() {
@@ -82,16 +92,16 @@ public class CapitalizacaoMultipla {
     }
 
     public BigDecimal descubraValorParcelaFixa() {
-        return BuscaBinaria.descubra(valorPresente, valorPresente, arredondamento, v -> {
+        return BuscaBinaria.descubra(valorPresente, valorPresente, v -> {
             setParcelaFixa(v);
             return calculeValorPresente();
-        });
+        }, arredondamentoFinal, arredondamentoIntermediario);
     }
 
     public BigDecimal descubraTaxaJuros(BigDecimal taxaRealMaxima, Arredondamento arredondamento) {
-        return BuscaBinaria.descubra(valorPresente, taxaRealMaxima, arredondamento, t -> {
+        return BuscaBinaria.descubra(valorPresente, taxaRealMaxima, t -> {
             juros.setTaxaReal(t);
             return calculeValorPresente();
-        });
+        }, arredondamento, arredondamentoIntermediario);
     }
 }

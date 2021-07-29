@@ -17,4 +17,12 @@ public class Calculo {
     public static BigDecimal percentualParaReal(BigDecimal valorPercentual) {
         return valorPercentual.movePointLeft(2);
     }
+
+    public static BigDecimal integerPow(BigDecimal valor, int expoente, Arredondamento arredondamento) {
+        BigDecimal potenciaPositiva = valor.pow(Math.abs(expoente));
+        if (expoente >= 0)
+            return potenciaPositiva;
+        else
+            return arredondamento.dividirArredondando(BigDecimal.ONE, potenciaPositiva);
+    }
 }

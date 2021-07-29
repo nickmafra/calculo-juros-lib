@@ -1,7 +1,6 @@
 package com.nickmafra.fin;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class CalculoJurosCompostos implements CalculoJuros {
 
@@ -11,16 +10,13 @@ public class CalculoJurosCompostos implements CalculoJuros {
     }
 
     @Override
-    public BigDecimal calculeValorFuturo(BigDecimal valorPresente, BigDecimal taxaReal, int qtPeriodos) {
-        BigDecimal taxaTotal = taxaReal.add(BigDecimal.ONE).pow(Math.abs(qtPeriodos));
-        if (qtPeriodos < 0)
-            return valorPresente.divide(taxaTotal, RoundingMode.HALF_UP);
-        else
-            return valorPresente.multiply(taxaTotal);
+    public BigDecimal calculeValorFuturo(BigDecimal valorPresente, BigDecimal taxaReal, int qtPeriodos, Arredondamento arredondamento) {
+        BigDecimal taxaTotal = Calculo.integerPow(taxaReal.add(BigDecimal.ONE), qtPeriodos, arredondamento);
+        return valorPresente.multiply(taxaTotal);
     }
 
     @Override
-    public BigDecimal calculeValorJuros(BigDecimal valorPresente, BigDecimal taxaReal, int qtPeriodos) {
-        return calculeValorFuturo(valorPresente, taxaReal, qtPeriodos).subtract(valorPresente);
+    public BigDecimal calculeValorJuros(BigDecimal valorPresente, BigDecimal taxaReal, int qtPeriodos, Arredondamento arredondamento) {
+        return calculeValorFuturo(valorPresente, taxaReal, qtPeriodos, arredondamento).subtract(valorPresente);
     }
 }

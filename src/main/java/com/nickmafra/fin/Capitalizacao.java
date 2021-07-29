@@ -6,7 +6,8 @@ import java.util.Objects;
 public class Capitalizacao {
 
     private final Juros juros;
-    private Arredondamento arredondamento = Arredondamento.PADRAO;
+    private Arredondamento arredondamentoFinal = Arredondamento.PADRAO;
+    private Arredondamento arredondamentoIntermediario = Arredondamento.INTERMEDIARIO_PADRAO;
     private BigDecimal valorPresente = BigDecimal.ZERO;
     private int qtPeriodos;
     private BigDecimal valorFuturo = BigDecimal.ZERO;
@@ -20,12 +21,20 @@ public class Capitalizacao {
         return juros;
     }
 
-    public Arredondamento getArredondamento() {
-        return arredondamento;
+    public Arredondamento getArredondamentoFinal() {
+        return arredondamentoFinal;
     }
 
-    public void setArredondamento(Arredondamento arredondamento) {
-        this.arredondamento = arredondamento;
+    public void setArredondamentoFinal(Arredondamento arredondamentoFinal) {
+        this.arredondamentoFinal = arredondamentoFinal;
+    }
+
+    public Arredondamento getArredondamentoIntermediario() {
+        return arredondamentoIntermediario;
+    }
+
+    public void setArredondamentoIntermediario(Arredondamento arredondamentoIntermediario) {
+        this.arredondamentoIntermediario = arredondamentoIntermediario;
     }
 
     public BigDecimal getValorPresente() {
@@ -58,8 +67,9 @@ public class Capitalizacao {
         Objects.requireNonNull(valorInicial);
         juros.validate();
 
-        BigDecimal valorFinal = juros.getTipoJuros().getCalculo().calculeValorFuturo(valorInicial, juros.getTaxaReal(), qtPeriodos);
-        return arredondamento.arredondar(valorFinal);
+        BigDecimal valorFinal = juros.getTipoJuros().getCalculo()
+                .calculeValorFuturo(valorInicial, juros.getTaxaReal(), qtPeriodos, arredondamentoIntermediario);
+        return arredondamentoFinal.arredondar(valorFinal);
     }
 
     public BigDecimal calculeValorFuturo() {

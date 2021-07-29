@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 public class Arredondamento {
 
     public static final Arredondamento PADRAO = new Arredondamento(2);
+    public static final Arredondamento INTERMEDIARIO_PADRAO = new Arredondamento(6);
 
     private final Integer escala;
     private final RoundingMode modo;
