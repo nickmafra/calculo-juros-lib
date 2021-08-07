@@ -10,20 +10,25 @@ import java.math.BigDecimal;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class CapitalizacaoParcelasFixas {
 
     @NonNull
+    @Builder.Default
     private Juros juros = new Juros();
     @NonNull
+    @Builder.Default
     private Arredondamento arredondamentoFinal = Arredondamento.PADRAO;
     @NonNull
+    @Builder.Default
     private Arredondamento arredondamentoIntermediario = Arredondamento.INTERMEDIARIO_PADRAO;
 
     @NonNull
+    @Builder.Default
     private BigDecimal valorParcela = BigDecimal.ZERO;
     private int qtParcelas;
     @NonNull
+    @Builder.Default
     private BigDecimal valorPresente = BigDecimal.ZERO;
 
     private static void validarJuros(Juros juros) {
