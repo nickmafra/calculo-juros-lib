@@ -1,8 +1,11 @@
 package com.nickmafra.fin;
 
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Getter
 public class Arredondamento {
 
     public static final Arredondamento PADRAO = new Arredondamento(2);

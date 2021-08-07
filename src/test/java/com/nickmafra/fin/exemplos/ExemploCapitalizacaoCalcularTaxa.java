@@ -1,8 +1,10 @@
-package com.nickmafra.fin;
+package com.nickmafra.fin.exemplos;
+
+import com.nickmafra.fin.*;
 
 import java.math.BigDecimal;
 
-public class CapitalizacaoExemploCalcularTaxa {
+public class ExemploCapitalizacaoCalcularTaxa {
 
     public static void main(String[] args) {
         Juros juros = new Juros();

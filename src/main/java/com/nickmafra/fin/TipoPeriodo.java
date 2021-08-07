@@ -1,8 +1,13 @@
 package com.nickmafra.fin;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
+@Getter
+@RequiredArgsConstructor
 public enum TipoPeriodo {
     DIA(ChronoUnit.DAYS),
     MES(ChronoUnit.MONTHS),
@@ -10,12 +15,4 @@ public enum TipoPeriodo {
     ;
 
     private final TemporalUnit unidade;
-
-    TipoPeriodo(TemporalUnit unidade) {
-        this.unidade = unidade;
-    }
-
-    public TemporalUnit getUnidade() {
-        return unidade;
-    }
 }
