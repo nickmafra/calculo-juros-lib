@@ -1,7 +1,6 @@
 package com.nickmafra.fin;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -9,6 +8,9 @@ import java.math.BigDecimal;
  * Classe que permite calcular valores de um financiamento de parcelas fixas, com juros compostos.
  */
 @Data
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class CapitalizacaoParcelasFixas {
 
     @NonNull
