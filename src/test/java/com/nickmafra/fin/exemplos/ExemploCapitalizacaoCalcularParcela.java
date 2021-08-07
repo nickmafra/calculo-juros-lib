@@ -1,8 +1,13 @@
-package com.nickmafra.fin;
+package com.nickmafra.fin.exemplos;
+
+import com.nickmafra.fin.CapitalizacaoMultipla;
+import com.nickmafra.fin.Juros;
+import com.nickmafra.fin.TipoJuros;
+import com.nickmafra.fin.TipoPeriodo;
 
 import java.math.BigDecimal;
 
-public class CapitalizacaoExemploCalcularParcela {
+public class ExemploCapitalizacaoCalcularParcela {
 
     public static void main(String[] args) {
         Juros juros = new Juros();
