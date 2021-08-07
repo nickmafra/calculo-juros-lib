@@ -1,17 +1,14 @@
 package com.nickmafra.fin;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum TipoJuros {
     SIMPLES(CalculoJurosSimples.INSTANCE),
     COMPOSTO(CalculoJurosCompostos.INSTANCE),
     ;
 
     private final CalculoJuros calculo;
-
-    TipoJuros(CalculoJuros calculo) {
-        this.calculo = calculo;
-    }
-
-    public CalculoJuros getCalculo() {
-        return calculo;
-    }
 }

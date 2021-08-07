@@ -1,34 +1,29 @@
 package com.nickmafra.fin;
 
+import lombok.Data;
+import lombok.NonNull;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
+@Data
 public class CapitalizacaoMultipla {
 
+    @NonNull
     private final Juros juros;
+    @NonNull
     private Arredondamento arredondamentoFinal = Arredondamento.PADRAO;
+    @NonNull
     private Arredondamento arredondamentoIntermediario = Arredondamento.INTERMEDIARIO_PADRAO;
+
     private final List<Capitalizacao> capitalizacoes = new ArrayList<>();
+    @NonNull
     private BigDecimal valorPresente = BigDecimal.ZERO;
 
-    public CapitalizacaoMultipla(Juros juros) {
-        Objects.requireNonNull(juros);
-        this.juros = juros;
-    }
-
-    public Juros getJuros() {
-        return juros;
-    }
-
-    public Arredondamento getArredondamentoFinal() {
-        return arredondamentoFinal;
-    }
-
-    public void setArredondamentoFinal(Arredondamento arredondamentoFinal) {
+    public void setArredondamentoFinal(@NonNull Arredondamento arredondamentoFinal) {
         this.arredondamentoFinal = arredondamentoFinal;
         capitalizacoes.forEach(c -> c.setArredondamentoIntermediario(arredondamentoFinal));
     }
@@ -71,14 +66,6 @@ public class CapitalizacaoMultipla {
         for (Capitalizacao capitalizacao : capitalizacoes) {
             capitalizacao.setValorFuturo(valorParcela);
         }
-    }
-
-    public BigDecimal getValorPresente() {
-        return valorPresente;
-    }
-
-    public void setValorPresente(BigDecimal valorPresente) {
-        this.valorPresente = valorPresente;
     }
 
     private BigDecimal calculeValor(Function<Capitalizacao, BigDecimal> getter) {
